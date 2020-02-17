@@ -1,6 +1,7 @@
 package com.example.studysystem.controller;
 
 import com.example.studysystem.DTO.UserDto;
+import com.example.studysystem.aspect.webLog.WebLog;
 import com.example.studysystem.entity.CommonResult;
 import com.example.studysystem.entity.Teacher;
 import com.example.studysystem.service.impl.TeacherServiceImpl;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * @author Misaikun
@@ -27,6 +31,7 @@ public class LoginController {
 
     @Autowired
     private TeacherServiceImpl teacherService = new TeacherServiceImpl();
+    private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @ApiOperation(value = "教师登录",notes = "根据用户名、密码判断该用户是否存在")
     @ApiImplicitParams({
@@ -34,7 +39,9 @@ public class LoginController {
             @ApiImplicitParam(name = "password", value = "密码", required = false, paramType = "query", dataType = "String")
     })
     @RequestMapping(value = "/teacher", method = RequestMethod.POST)
-    public CommonResult login( UserDto userDto) {//@RequestBody
+    @WebLog(description = "请求了登陆接口")
+    public CommonResult login(  UserDto userDto) {//@RequestBody
+        logger.info("user login ...");
         System.out.println(userDto.getName());
         Teacher teacher = teacherService.findByName(userDto.getName());
         if (userDto.getPassword().equals(teacher.getPassword()))
