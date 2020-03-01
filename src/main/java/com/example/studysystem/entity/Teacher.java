@@ -19,9 +19,12 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(length = 55)
+    @Column(length = 55,name = "name")
     private String name;
+    @Column(name = "password")
     private String password;
+    @OneToOne(mappedBy = "teacher",cascade = CascadeType.ALL)
+    private ClassInfo classInfo;
 
     public Integer getId() {
         return id;
@@ -46,6 +49,7 @@ public class Teacher {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     @Override
     public String toString() {

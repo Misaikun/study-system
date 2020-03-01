@@ -4,7 +4,7 @@ import com.example.studysystem.DTO.UserDto;
 import com.example.studysystem.aspect.webLog.WebLog;
 import com.example.studysystem.entity.CommonResult;
 import com.example.studysystem.entity.Teacher;
-import com.example.studysystem.service.impl.TeacherServiceImpl;
+import com.example.studysystem.service.TeacherServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

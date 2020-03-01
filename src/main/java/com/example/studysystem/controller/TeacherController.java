@@ -2,7 +2,7 @@ package com.example.studysystem.controller;
 
 import com.example.studysystem.aspect.webLog.WebLog;
 import com.example.studysystem.entity.Teacher;
-import com.example.studysystem.service.impl.TeacherServiceImpl;
+import com.example.studysystem.service.TeacherServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

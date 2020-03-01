@@ -1,4 +1,4 @@
-package com.example.studysystem.service.impl;
+package com.example.studysystem.service;
 
 import com.example.studysystem.entity.Teacher;
 import com.example.studysystem.mapper.TeacherMapper;
