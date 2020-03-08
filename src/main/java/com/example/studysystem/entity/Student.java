@@ -1,9 +1,12 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Misaikun
@@ -23,17 +26,13 @@ public class Student {
 
     @Column(length = 55,name = "name")
     private String name;//账号名
-    @Column(name = "password")
     private String password;//密码
-    @Column(name = "number")
     private Integer number;//学号
-    @Column(name = "class_info")
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinColumn(name = "classinfo_id")
     private ClassInfo classInfo;//班级
 
-    @OneToMany
-    private Student student;
-
-    @OneToOne
-    private Teacher teacher;
+    @OneToMany(mappedBy = "student")
+    private List<Score> scores = new ArrayList<Score>();
 }

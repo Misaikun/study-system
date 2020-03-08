@@ -1,8 +1,11 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.*;
+
 
 /**
  * @author Misaikun
@@ -19,6 +22,15 @@ public class Grade {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @OneToMany
-    private ClassInfo classInfo;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    private Set<ClassInfo> clazzs = new HashSet<>();
+
+    @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    private List<Knowledge> knowledges = new ArrayList<Knowledge>();
+
+//    @JsonIgnore
+//    @OneToOne()
+//    private List<Question> questions = new ArrayList<Question>();
 }

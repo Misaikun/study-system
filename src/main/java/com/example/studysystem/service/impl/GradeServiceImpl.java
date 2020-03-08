@@ -6,6 +6,7 @@ import com.example.studysystem.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Misaikun
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
  * @description
  * @date 2020/3/1 15:47
  */
+@Service
 public class GradeServiceImpl implements GradeService {
     @Autowired
     GradeMapper gradeMapper;

@@ -1,8 +1,12 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Misaikun
@@ -19,44 +23,21 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(length = 55,name = "name")
+    @Column(length = 55, name = "name")
     private String name;
     @Column(name = "password")
     private String password;
-    @OneToOne(mappedBy = "teacher",cascade = CascadeType.ALL)
-    private ClassInfo classInfo;
 
-    public Integer getId() {
-        return id;
-    }
+    //    @JsonIgnoreProperties("teacher")
+    @JsonIgnore
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<ClassInfo> classInfos = new ArrayList<ClassInfo>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ChoiceQuestion> choiceQuestions = new ArrayList<ChoiceQuestion>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Examination> examinations = new ArrayList<Examination>();
 }

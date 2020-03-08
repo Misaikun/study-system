@@ -6,6 +6,7 @@ import com.example.studysystem.service.ClassInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Misaikun
@@ -13,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
  * @description
  * @date 2020/3/1 15:50
  */
+
+@Service
 public class ClassInfoServiceImpl implements ClassInfoService {
 
     @Autowired
