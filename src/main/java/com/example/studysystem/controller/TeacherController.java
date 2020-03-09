@@ -26,7 +26,7 @@ public class TeacherController {
     @RequestMapping("/findByName")
     @ApiOperation(value = "查询单个教师",notes = "根据name查询")
     @WebLog(description = "根据教师名字查找教师接口")
-    public Teacher findByName(String name){
+    public Teacher findByName(@RequestParam String name){
         return teacher.findByName(name);
     }
 
@@ -34,7 +34,7 @@ public class TeacherController {
     @RequestMapping("/findByPage")
     @ApiOperation(value = "分页查询所有教师",notes = "分页查询所有教师")
     @WebLog(description = "分页查找所有教师")
-    public Page<Teacher> findByPage(int page){
+    public Page<Teacher> findByPage(@RequestParam int page){
         if(page==0)
             page=1;
         return teacher.findByPage(page-1,2);
@@ -49,13 +49,13 @@ public class TeacherController {
     //修改
     @GetMapping("/update")
     @WebLog(description = "更新教师接口")
-    public Teacher update(Teacher student){
-        return teacher.update(student);
+    public Teacher update(@RequestBody Teacher teacher2){
+        return teacher.update(teacher2);
     }
     //删除
     @GetMapping("delete")
     @WebLog(description = "删除教师接口")
-    public int delete(Integer id){
+    public int delete(@RequestParam Integer id){
         try {
             teacher.delete(id);
             return 1;

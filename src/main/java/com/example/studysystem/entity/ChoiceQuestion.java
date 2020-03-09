@@ -1,5 +1,6 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,11 +23,14 @@ public class ChoiceQuestion {
     private Integer id;
     private String course;
     @ManyToOne
+    @JsonIgnore
     private Question question;
 
     @ManyToOne
+    @JsonIgnore
     private Knowledge knowledge;
 
+    @JsonIgnore
     @ManyToOne
     private Teacher teacher;
 

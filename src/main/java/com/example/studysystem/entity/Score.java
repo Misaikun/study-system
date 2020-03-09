@@ -1,5 +1,6 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,8 +24,10 @@ public class Score {
     private Integer num;
 
     @ManyToOne
+    @JsonIgnore
     private Examination examination;
 
+    @JsonIgnore
     @ManyToOne
     private Student student;
 

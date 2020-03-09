@@ -33,6 +33,7 @@ public class Student {
     @JoinColumn(name = "classinfo_id")
     private ClassInfo classInfo;//班级
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student")
     private List<Score> scores = new ArrayList<Score>();
 }

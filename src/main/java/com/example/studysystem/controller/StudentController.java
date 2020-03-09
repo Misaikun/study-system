@@ -32,7 +32,7 @@ public class StudentController {
     @RequestMapping("/findByPage")
     @ApiOperation(value="分页查询所有学生")
     @WebLog(description = "分页查询所有学生")
-    public Page<Student> findByPage(int page){
+    public Page<Student> findByPage(@RequestParam int page){
         if(page==0)
             page=1;
         return studentService.findByPage(page-1,2);
@@ -47,13 +47,13 @@ public class StudentController {
     //修改
     @GetMapping("/update")
     @WebLog(description = "更新学生接口")
-    public Student update(Student student){
+    public Student update(@RequestBody Student student){
         return studentService.update(student);
     }
     //删除
     @GetMapping("delete")
     @WebLog(description = "删除学生接口")
-    public int delete(Integer id){
+    public int delete(@RequestParam Integer id){
         try {
             studentService.delete(id);
             return 1;

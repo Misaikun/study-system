@@ -40,7 +40,7 @@ public class LoginController {
     })
     @RequestMapping(value = "/teacher", method = RequestMethod.POST)
     @WebLog(description = "请求了登陆接口")
-    public CommonResult login(  UserDto userDto) {//@RequestBody
+    public CommonResult login(@RequestBody UserDto userDto) {//@RequestBody
         logger.info("user login ...");
         System.out.println(userDto.getName());
         Teacher teacher = teacherService.findByName(userDto.getName());

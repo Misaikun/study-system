@@ -1,5 +1,6 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,11 +28,14 @@ public class Examination {
     private String name;
 
     @ManyToOne()
+    @JsonIgnore
     private Teacher teacher;
 
     @ManyToOne()
+    @JsonIgnore
     private ClassInfo classInfo;
 
     @OneToMany(mappedBy = "examination")
+    @JsonIgnore
     private List<Score> scores = new ArrayList<Score>();
 }

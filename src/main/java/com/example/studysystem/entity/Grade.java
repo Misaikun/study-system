@@ -1,6 +1,7 @@
 package com.example.studysystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Grade {
     @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private Set<ClassInfo> clazzs = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private List<Knowledge> knowledges = new ArrayList<Knowledge>();
 
