@@ -1,6 +1,8 @@
 package com.example.studysystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,7 +18,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "grade")
-@Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,15 +26,53 @@ public class Grade {
     @Column(name = "name")
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private Set<ClassInfo> clazzs = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private List<Knowledge> knowledges = new ArrayList<Knowledge>();
+    private Set<ClassInfo> clazzs ;
 
-//    @JsonIgnore
-//    @OneToOne()
-//    private List<Question> questions = new ArrayList<Question>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    private Set<Knowledge> knowledges ;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<ClassInfo> getClazzs() {
+        return clazzs;
+    }
+
+    public void setClazzs(Set<ClassInfo> clazzs) {
+        this.clazzs = clazzs;
+    }
+
+    public Set<Knowledge> getKnowledges() {
+        return knowledges;
+    }
+
+    public void setKnowledges(Set<Knowledge> knowledges) {
+        this.knowledges = knowledges;
+    }
+
+    @Override
+    public String toString() {
+        return "Grade{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

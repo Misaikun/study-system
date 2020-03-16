@@ -23,7 +23,7 @@ public class TeacherController {
     @Autowired
     private TeacherServiceImpl teacher;
 
-    @RequestMapping("/findByName")
+    @GetMapping("/findByName")
     @ApiOperation(value = "查询单个教师",notes = "根据name查询")
     @WebLog(description = "根据教师名字查找教师接口")
     public Teacher findByName(@RequestParam String name){
@@ -31,7 +31,7 @@ public class TeacherController {
     }
 
     //分页查询
-    @RequestMapping("/findByPage")
+    @GetMapping("/findByPage")
     @ApiOperation(value = "分页查询所有教师",notes = "分页查询所有教师")
     @WebLog(description = "分页查找所有教师")
     public Page<Teacher> findByPage(@RequestParam int page){

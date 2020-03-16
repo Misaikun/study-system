@@ -22,14 +22,14 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentService;
 
-    @RequestMapping("/findByName")
+    @GetMapping("/findByName")
     @ApiOperation(value = "查询单个学生",notes = "根据name查询")
     @WebLog(description = "根据学生名字查找学生接口")
     public Student findByName(String name){
         return studentService.findByName(name);
     }
 
-    @RequestMapping("/findByPage")
+    @GetMapping("/findByPage")
     @ApiOperation(value="分页查询所有学生")
     @WebLog(description = "分页查询所有学生")
     public Page<Student> findByPage(@RequestParam int page){

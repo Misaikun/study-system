@@ -17,4 +17,7 @@ public class Relation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String name;
+    private Integer up_id;
+    private Integer down_id;
 }
