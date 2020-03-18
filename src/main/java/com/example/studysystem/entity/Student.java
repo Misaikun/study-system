@@ -20,6 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 
 public class Student {
 
@@ -40,7 +41,7 @@ public class Student {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Score> scores ;
+    private Set<Score> scores = new HashSet<>();
 
 
     public Integer getId() {

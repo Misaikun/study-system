@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "knowledge")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Knowledge {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +35,7 @@ public class Knowledge {
 
     @JsonIgnore
     @OneToMany(mappedBy = "knowledge",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<ChoiceQuestion> choiceQuestions ;
+    private Set<ChoiceQuestion> choiceQuestions = new HashSet<>();
 
     public Integer getId() {
         return id;

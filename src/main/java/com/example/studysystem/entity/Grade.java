@@ -2,6 +2,7 @@ package com.example.studysystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.util.*;
 @Entity
 @Table(name = "grade")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,12 +31,12 @@ public class Grade {
 
     @JsonIgnore
     @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private Set<ClassInfo> clazzs ;
+    private Set<ClassInfo> clazzs = new HashSet<>();
 
 
     @JsonIgnore
     @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private Set<Knowledge> knowledges ;
+    private Set<Knowledge> knowledges = new HashSet<>();
 
     public Integer getId() {
         return id;

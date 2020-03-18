@@ -1,7 +1,6 @@
 package com.example.studysystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +16,8 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "message")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,11 +25,11 @@ public class Message {
     private String title;
     private String content;
 
-    @JsonIgnore
-    @JoinColumn(name = "teacher_id",insertable = true ,updatable = false)
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Teacher teacher;
+//    @JsonIgnore
+//    @JoinColumn(name = "teacher_id",insertable = true ,updatable = false)
+//    @JsonBackReference
+//    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private Teacher teacher;
 
     @JsonIgnore
     @JoinColumn(name = "classinfo_id",insertable = true ,updatable = false)

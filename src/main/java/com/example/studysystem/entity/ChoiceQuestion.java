@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "choice_question")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class ChoiceQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,13 +27,13 @@ public class ChoiceQuestion {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    @JoinColumn(name = "knowledge_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "knowledge_id")
     @JsonBackReference
     private Knowledge knowledge;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "teacher_id")
     @JsonBackReference
     private Teacher teacher;
 

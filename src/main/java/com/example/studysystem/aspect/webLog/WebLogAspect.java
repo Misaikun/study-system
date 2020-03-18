@@ -1,6 +1,5 @@
 package com.example.studysystem.aspect.webLog;
 
-import com.google.gson.Gson;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -63,7 +62,7 @@ public class WebLogAspect {
         // 打印请求的 IP
         logger.info("IP             : {}", request.getRemoteAddr());
         // 打印请求入参
-        logger.info("Request Args   : {}", new Gson().toJson(joinPoint.getArgs()));
+        logger.info("Request Args   : {}", joinPoint.getArgs());
     }
 
     /**
@@ -87,7 +86,7 @@ public class WebLogAspect {
         long startTime = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();
         // 打印出参
-        logger.info("Response Args  : {}", new Gson().toJson(result));
+        logger.info("Response Args  : {}", result);
         // 执行耗时
         logger.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
         return result;

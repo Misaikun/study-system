@@ -25,7 +25,7 @@ public class StudentController {
     @GetMapping("/findByName")
     @ApiOperation(value = "查询单个学生",notes = "根据name查询")
     @WebLog(description = "根据学生名字查找学生接口")
-    public Student findByName(String name){
+    public Student findByName(@RequestParam String name){
         return studentService.findByName(name);
     }
 

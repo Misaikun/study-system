@@ -20,6 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "classinfo")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class ClassInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,27 +30,27 @@ public class ClassInfo {
 
     @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    @JoinColumn(name = "grade_id",insertable = true ,updatable = false)
+    @JoinColumn(name = "grade_id")
     @JsonBackReference
     private Grade grade;
 
     @JsonIgnore
-    @JoinColumn(name = "teacher_id",insertable = true ,updatable = false)
+    @JoinColumn(name = "teacher_id" )
     @JsonBackReference
-    @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.EAGER)
+    @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.LAZY)
     private Teacher teacher;
 
     @OneToMany(mappedBy = "classInfo",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Student> students ;
+    private Set<Student> students = new HashSet<>();
 
     @OneToMany(mappedBy = "classInfo",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Examination> examinations ;
+    private Set<Examination> examinations = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "teacher", cascade=CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<Message> messages ;
+    @OneToMany(mappedBy = "classInfo", cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Message> messages = new HashSet<>();
 
 
     public Integer getId() {
@@ -84,11 +85,8 @@ public class ClassInfo {
         this.teacher = teacher;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 
