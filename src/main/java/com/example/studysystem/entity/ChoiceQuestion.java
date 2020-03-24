@@ -5,8 +5,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Misaikun
@@ -19,23 +21,28 @@ import java.util.List;
 @Table(name = "choice_question")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-public class ChoiceQuestion {
+public class ChoiceQuestion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String course;
+    private String course;//科目
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(ignoreUnknown = true,value = {"knowledge_grade"})
     @JoinColumn(name = "knowledge_id")
-    @JsonBackReference
+    @JsonBackReference(value ="knowledge" )
     private Knowledge knowledge;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+    @JsonIgnoreProperties(ignoreUnknown = true,value = {"password","name"})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
-    @JsonBackReference
+    @JsonBackReference(value = "teacher")
     private Teacher teacher;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "choiceQuestion",fetch = FetchType.EAGER)
+    private Set<ExaminationContent> examinationContents;
 
     @NotNull
     private String stem;//题干
@@ -124,6 +131,14 @@ public class ChoiceQuestion {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Set<ExaminationContent> getExaminationContents() {
+        return examinationContents;
+    }
+
+    public void setExaminationContents(Set<ExaminationContent> examinationContents) {
+        this.examinationContents = examinationContents;
     }
 
     @Override

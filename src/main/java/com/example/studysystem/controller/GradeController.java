@@ -1,7 +1,9 @@
 package com.example.studysystem.controller;
 
 import com.example.studysystem.aspect.webLog.WebLog;
+import com.example.studysystem.entity.CommonResult;
 import com.example.studysystem.entity.Grade;
+import com.example.studysystem.entity.ResultEnum;
 import com.example.studysystem.service.impl.GradeServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,36 +28,43 @@ public class GradeController {
     @GetMapping("/findByName")
     @ApiOperation(value = "查询年级",notes = "根据name查询")
     @WebLog(description = "根据年级名查找年级接口")
-    public Grade findByName(String name){return gradeService.findByName(name);}
+    public CommonResult<Grade> findByName(String name){
+        Grade grade = gradeService.findByName(name);
+        return new CommonResult<Grade>(ResultEnum.SUCCESS.getCode(),"findByName",grade);
+    }
 
     @GetMapping("/findByPage")
     @ApiOperation(value = "分页查询所有年级")
     @WebLog(description = "分页查询所有年级接口")
-    public Page<Grade> findByPage(@RequestParam int page){
+    public  CommonResult<Page<Grade>> findByPage(@RequestParam int page){
         if(page==0)
             page=1;
-        return gradeService.findByPage(page-1,2);
+        Page<Grade> gradePage = gradeService.findByPage(page-1,2);
+        return new CommonResult<Page<Grade>>(ResultEnum.SUCCESS.getCode(),"findByPage",gradePage);
     }
 
     @PostMapping("/save")
     @ApiOperation(value = "保存年级")
     @WebLog(description = "保存年级接口")
-    public Grade save(@RequestBody Grade grade){
-        return gradeService.save(grade);
+    public  CommonResult<Grade> save(@RequestBody Grade grade){
+        Grade grade1 = gradeService.save(grade);
+        return new CommonResult<Grade>(ResultEnum.SUCCESS.getCode(),"save",grade1);
     }
 
     @PutMapping("/update")
     @ApiOperation(value = "更新年级")
     @WebLog(description = "更新年级接口")
-    public Grade update(@RequestBody Grade grade){
-        return gradeService.update(grade);
+    public  CommonResult<Grade> update(@RequestBody Grade grade){
+        Grade grade1 = gradeService.update(grade);
+        return new CommonResult<Grade>(ResultEnum.SUCCESS.getCode(),"update",grade1);
     }
 
     @GetMapping("/delete")
     @ApiOperation(value = "删除年级")
     @WebLog(description = "删除年级接口")
-    public void delete(@RequestParam int id){
+    public  CommonResult<Integer> delete(@RequestParam int id) {
         gradeService.delete(id);
+        return new CommonResult<Integer>(ResultEnum.SUCCESS.getCode(),"delete",id);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.studysystem.service.impl;
 
 import com.example.studysystem.entity.ChoiceQuestion;
 import com.example.studysystem.entity.ClassInfo;
+import com.example.studysystem.entity.ExaminationContent;
 import com.example.studysystem.mapper.ChoiceQuestionMapper;
 import com.example.studysystem.service.ChoiceQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,10 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     public List<ChoiceQuestion> findAllByKnowledge_Name(String name){
         return choiceQuestionMapper.findAllByKnowledge_Name(name);
     }
+
+    @Override
+    public List<ChoiceQuestion> findChoiceQuestionsByExamination_id(Integer id){
+        return choiceQuestionMapper.findChoiceQuestionsByExamination_id(id);
+    }
+
 }

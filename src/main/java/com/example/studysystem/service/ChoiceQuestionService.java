@@ -1,6 +1,7 @@
 package com.example.studysystem.service;
 
 import com.example.studysystem.entity.ChoiceQuestion;
+import com.example.studysystem.entity.ExaminationContent;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface ChoiceQuestionService {
 
     List<ChoiceQuestion> findAllByKnowledge_Name(String name);
 
-
+    List<ChoiceQuestion> findChoiceQuestionsByExamination_id(Integer id);
 }

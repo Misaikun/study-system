@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -21,10 +22,11 @@ import java.util.*;
 @Table(name = "grade")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-public class Grade {
+public class Grade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(name = "name")
     private String name;
 
@@ -35,7 +37,7 @@ public class Grade {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "knowledge_grade",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private Set<Knowledge> knowledges = new HashSet<>();
 
     public Integer getId() {

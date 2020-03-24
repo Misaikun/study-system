@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Table(name = "knowledge")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-public class Knowledge {
+public class Knowledge implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -29,9 +30,9 @@ public class Knowledge {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    @JoinColumn(name = "grade_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "knowledge_grade_id")
     @JsonBackReference
-    private Grade grade;
+    private Grade knowledge_grade;
 
     @JsonIgnore
     @OneToMany(mappedBy = "knowledge",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -54,11 +55,11 @@ public class Knowledge {
     }
 
     public Grade getGrade() {
-        return grade;
+        return knowledge_grade;
     }
 
     public void setGrade(Grade grade) {
-        this.grade = grade;
+        this.knowledge_grade = grade;
     }
 
     public Set<ChoiceQuestion> getChoiceQuestions() {

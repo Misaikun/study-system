@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 
-public class Student {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +36,7 @@ public class Student {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)//cascade=CascadeType.ALL,fetch=FetchType.EAGER
-    @JoinColumn(name = "classinfo_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "classinfo_id")
     @JsonBackReference
     private ClassInfo classInfo;//班级
 

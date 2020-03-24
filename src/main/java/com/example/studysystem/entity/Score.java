@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Misaikun
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 
-public class Score {
+public class Score implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,13 +28,13 @@ public class Score {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
-    @JoinColumn(name = "examination_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "examination_id")
     @JsonBackReference
     private Examination examination;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id",insertable = false ,updatable = false)
+    @JoinColumn(name = "student_id")
     @JsonBackReference
     private Student student;
 

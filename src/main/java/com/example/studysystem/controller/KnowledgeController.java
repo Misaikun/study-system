@@ -1,7 +1,9 @@
 package com.example.studysystem.controller;
 
 import com.example.studysystem.aspect.webLog.WebLog;
+import com.example.studysystem.entity.CommonResult;
 import com.example.studysystem.entity.Knowledge;
+import com.example.studysystem.entity.ResultEnum;
 import com.example.studysystem.service.impl.KnowledgeServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,30 +28,35 @@ public class KnowledgeController {
     @GetMapping("/findByPage")
     @ApiOperation(value="分页查询所有知识点")
     @WebLog(description = "分页查询所有知识点")
-    public Page<Knowledge> findByPage(@RequestParam  Integer page){
+    public CommonResult<Page<Knowledge>> findByPage(@RequestParam  Integer page){
         if(page==0)
             page=1;
-        return knowledgeService.findByPage(page-1,2);
+        Page<Knowledge> knowledgePage =  knowledgeService.findByPage(page-1,2);
+        return new CommonResult<Page<Knowledge>>(ResultEnum.SUCCESS.getCode(),"findByPage",knowledgePage);
     }
     @PostMapping("/save")
     @ApiOperation(value="保存知识点")
     @WebLog(description = "保存知识点")
-    public Knowledge save(@RequestBody Knowledge knowledge){
-        return knowledgeService.save(knowledge);
+    public CommonResult<Knowledge> save(@RequestBody Knowledge knowledge){
+        Knowledge knowledge1 = knowledgeService.save(knowledge);
+        return new CommonResult<Knowledge>(ResultEnum.SUCCESS.getCode(),"save",knowledge1);
     }
 
     @PostMapping("/update")
     @ApiOperation(value="更新知识点")
     @WebLog(description = "更新知识点")
-    public Knowledge update(@RequestBody Knowledge knowledge){
-        return knowledgeService.update(knowledge);
+    public CommonResult<Knowledge> update(@RequestBody Knowledge knowledge){
+        Knowledge knowledge1 =  knowledgeService.update(knowledge);
+        return new CommonResult<Knowledge>(ResultEnum.SUCCESS.getCode(),"update",knowledge1);
     }
+
 
     @GetMapping("/delete")
     @ApiOperation(value="删除知识点")
     @WebLog(description = "删除知识点")
-    public void delete(@RequestParam Integer id){
+    public CommonResult<Integer> delete(@RequestParam Integer id){
         knowledgeService.delete(id);
+        return new CommonResult<Integer>(ResultEnum.SUCCESS.getCode(),"delete",id);
     }
 
 }

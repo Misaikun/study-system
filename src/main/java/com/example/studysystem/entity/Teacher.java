@@ -23,7 +23,7 @@ import java.util.Set;
 @Table(name = "teacher")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-public class Teacher {
+public class Teacher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -42,9 +42,9 @@ public class Teacher {
     private Set<ChoiceQuestion> choiceQuestions = new HashSet<>();
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<Examination> examinations = new HashSet<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private Set<Examination> examinations = new HashSet<>();
 
 
 //    @JsonIgnore
@@ -98,13 +98,13 @@ public class Teacher {
         this.choiceQuestions = choiceQuestions;
     }
 
-    public Set<Examination> getExaminations() {
-        return examinations;
-    }
-
-    public void setExaminations(Set<Examination> examinations) {
-        this.examinations = examinations;
-    }
+//    public Set<Examination> getExaminations() {
+//        return examinations;
+//    }
+//
+//    public void setExaminations(Set<Examination> examinations) {
+//        this.examinations = examinations;
+//    }
 
 
     @Override

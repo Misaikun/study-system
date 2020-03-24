@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Table(name = "classinfo")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-public class ClassInfo {
+public class ClassInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -111,6 +112,8 @@ public class ClassInfo {
         return "ClassInfo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", grade='" + grade.getName() + '\'' +
+                ", teacher='" + teacher.getName() + '\'' +
                 '}';
     }
 }
