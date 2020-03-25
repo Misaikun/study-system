@@ -6,8 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,20 +27,21 @@ public class ChoiceQuestion implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(ignoreUnknown = true,value = {"knowledge_grade"})
-    @JoinColumn(name = "knowledge_id")
+    @JoinColumn(name = "choicequestion_knowledge_id")
     @JsonBackReference(value ="knowledge" )
     private Knowledge knowledge;
 
 
     @JsonIgnoreProperties(ignoreUnknown = true,value = {"password","name"})
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id")
+    @JoinColumn(name = "choicequestion_eacher_id")
     @JsonBackReference(value = "teacher")
     private Teacher teacher;
 
-    @JsonIgnore
+    @JsonIgnoreProperties
     @OneToMany(mappedBy = "choiceQuestion",fetch = FetchType.EAGER)
     private Set<ExaminationContent> examinationContents;
+
 
     @NotNull
     private String stem;//题干
@@ -140,6 +139,7 @@ public class ChoiceQuestion implements Serializable {
     public void setExaminationContents(Set<ExaminationContent> examinationContents) {
         this.examinationContents = examinationContents;
     }
+
 
     @Override
     public String toString() {

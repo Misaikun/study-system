@@ -34,7 +34,7 @@ public class Message implements Serializable {
 
     @JsonIgnore
     @JoinColumn(name = "classinfo_id")
-    @JsonBackReference
+    @JsonBackReference(value = "classInfo")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private ClassInfo classInfo;
 }

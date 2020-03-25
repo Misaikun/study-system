@@ -35,25 +35,23 @@ public class Examination implements Serializable {
 
     private String name;
 
-//    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-//    @JsonIgnore
-//    @JoinColumn(name = "teacher_id")
-//    @JsonBackReference
-//    private Teacher teacher;
-
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonIgnoreProperties
     @JoinColumn(name = "classinfo_id")
-    @JsonBackReference
+    @JsonBackReference(value = "classInfo")
     private ClassInfo classInfo;
 
-    @JsonIgnore
+    @JsonIgnoreProperties
     @OneToMany(mappedBy = "examination",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Score> scores ;
 
-    @JsonIgnore
+    @JsonIgnoreProperties
     @OneToMany(mappedBy = "examination",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<ExaminationContent> examinationContents;
+
+//    @JsonIgnoreProperties
+//    @OneToMany(mappedBy = "examination",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private Set<Answer> answers;
 
 
     public Integer getId() {
@@ -127,6 +125,14 @@ public class Examination implements Serializable {
     public void setExaminationContents(Set<ExaminationContent> examinationContents) {
         this.examinationContents = examinationContents;
     }
+
+//    public Set<Answer> getAnswers() {
+//        return answers;
+//    }
+//
+//    public void setAnswers(Set<Answer> answers) {
+//        this.answers = answers;
+//    }
 
     @Override
     public String toString() {

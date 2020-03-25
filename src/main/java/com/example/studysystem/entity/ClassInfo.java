@@ -32,12 +32,12 @@ public class ClassInfo implements Serializable {
     @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "grade_id")
-    @JsonBackReference
+    @JsonBackReference(value = "grade")
     private Grade grade;
 
     @JsonIgnore
     @JoinColumn(name = "teacher_id" )
-    @JsonBackReference
+    @JsonBackReference(value = "teacher")
     @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.LAZY)
     private Teacher teacher;
 

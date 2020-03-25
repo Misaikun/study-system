@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author Misaikun
@@ -35,4 +36,8 @@ public class ExaminationContent implements Serializable {
     @JsonIgnoreProperties(ignoreUnknown = true,value = {"knowledge","teacher"})
     private ChoiceQuestion choiceQuestion;
 
+
+    @JsonIgnoreProperties
+    @OneToMany(mappedBy = "examinationContent",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Answer> answers;
 }

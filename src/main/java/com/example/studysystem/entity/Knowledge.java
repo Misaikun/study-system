@@ -31,7 +31,7 @@ public class Knowledge implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "knowledge_grade_id")
-    @JsonBackReference
+    @JsonBackReference(value = "knowledge_grade")
     private Grade knowledge_grade;
 
     @JsonIgnore

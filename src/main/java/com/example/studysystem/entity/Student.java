@@ -37,13 +37,17 @@ public class Student implements Serializable {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)//cascade=CascadeType.ALL,fetch=FetchType.EAGER
     @JoinColumn(name = "classinfo_id")
-    @JsonBackReference
+    @JsonBackReference(value = "classInfo")
     private ClassInfo classInfo;//班级
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Score> scores = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Answer> answers = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -91,6 +95,14 @@ public class Student implements Serializable {
 
     public void setScores(Set<Score> scores) {
         this.scores = scores;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
     }
 
     @Override

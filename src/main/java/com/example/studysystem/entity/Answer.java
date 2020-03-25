@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @description
  * @date 2020/3/24 10:44
  */
+
 @Entity
 @Table(name = "answer")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -23,21 +25,60 @@ public class Answer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JoinColumn(name = "examination_id" )
-    @JsonIgnoreProperties(ignoreUnknown = true,value={"classInfo","createTime","stareTime","endTime"})
-    @JsonBackReference(value = "examination")
-    @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.EAGER)
-    private Examination examination;
+    private String content;
 
-    @JoinColumn(name = "choicequestion_id" )
-    @JsonIgnoreProperties(ignoreUnknown = true,value = {"knowledge","teacher"})
-    @JsonBackReference(value = "choiceQuestion")
-    @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.EAGER)
-    private ChoiceQuestion choiceQuestion;
+    private Integer num;
 
-    @JoinColumn(name = "student_id" )
+    @JoinColumn(name = "answer_examinationContent_id" )
+    @JsonIgnoreProperties(ignoreUnknown = true,value = {"examination","choiceQuestion"})
+    @JsonBackReference(value = "examinationContent")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ExaminationContent examinationContent;
+
+    @JoinColumn(name = "answer_student_id" )
     @JsonIgnoreProperties(ignoreUnknown = true,value = {"classInfo"})
-    @JsonBackReference(value = "choiceQuestion")
-    @ManyToOne(cascade=CascadeType.ALL ,fetch = FetchType.EAGER)
+    @JsonBackReference(value = "student")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Student student;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ExaminationContent getExaminationContent() {
+        return examinationContent;
+    }
+
+    public void setExaminationContent(ExaminationContent examinationContent) {
+        this.examinationContent = examinationContent;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

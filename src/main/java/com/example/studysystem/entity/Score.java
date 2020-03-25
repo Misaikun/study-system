@@ -29,13 +29,13 @@ public class Score implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "examination_id")
-    @JsonBackReference
+    @JsonBackReference(value = "examination")
     private Examination examination;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
-    @JsonBackReference
+    @JsonBackReference(value = "student")
     private Student student;
 
 
